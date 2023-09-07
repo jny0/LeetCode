@@ -13,29 +13,23 @@
  *     }
  * }
  */
-
-public class Solution {
+class Solution {
+    static int a;
+    static int answer;
     public int kthSmallest(TreeNode root, int k) {
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root;
-        int count = 0;
+        a = k;
+        inorder(root);
+        return answer;
+    }
 
-        while (current != null || !stack.isEmpty()) {
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-
-            current = stack.pop();
-            count++;
-
-            if (count == k) {
-                return current.val;
-            }
-
-            current = current.right;
+    public void inorder(TreeNode now){
+        if(now == null) return;
+        inorder(now.left);
+        a--;
+        if(a==0) {
+            answer =  now.val;
+            return;
         }
-
-        return -1; // k번째 원소가 항상 존재한다고 가정할 때, 여기에 다른 처리를 추가할 수 있습니다.
+        inorder(now.right);
     }
 }
